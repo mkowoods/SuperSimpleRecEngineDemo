@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Data for Movie {{ movie_id }} - {{ movie_data.title }}</h1>
+            <h3>{{ movie_data.genres|join(', ') }}</h3>
+            <h4># of reviews: {{ review_ct }}</h4>
+        </div>
+    </div>
+    <hr>
+    <div>
+        <div class="row" style="height: 700px">
+            <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                {% for rec in recs %}
+                    <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a></h5>
+                    <div>{{ rec[0].genres|join(', ') }}</div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                {% for rec in anti_recs %}
+                    <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a> </h5>
+                    <div>{{ rec[0].genres|join(', ') }}</div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                {% for rec in most_in_common %}
+                    <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a></h5>
+                    <div>{{ rec[0].genres|join(', ') }}</div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+
+
+{% block body %}
+<div class="container">
+    <div class="row" style="height: 900px">
+        <div class="col-md-6" style="height: inherit; overflow-y: scroll">
+            <br>
+            <br>
+            <table class="table table-condensed">
+            <thead>
+                <th><h1>User ID</h1></th>
+                <th><h1># of Ratings</h1></th>
+                <th><h1>Avg Rating</h1></th>
+            </thead>
+            <tbody>
+                {% for user_id, summary in user_summaries %}
+                    <tr>
+                        <td>
+                            <h4 id="title">
+                                <a href="/user/{{ user_id }}">
+                                    {{ user_id }}
+                                </a>
+                            </h4>
+                        </td>
+                        <td>
+                            <h4>
+                                {{ summary[1] }}
+                            </h4>
+                        </td>
+                        <td>
+                            <h4>
+                                {{ (summary[0]/summary[1])|round(4) }}
+                            </h4>
+                        </td>
+                    </tr>
+
+                {%  endfor %}
+
+            </tbody>
+            </table>
+        </div>
+        <div class="col-md-6" style="height: inherit; overflow-y: scroll">
+            <table class="table table-condensed">
+                <thead>
+                    <th>
+                        <h1>Rank</h1>
+                    </th>
+                    <th>
+                        <h1>
+                            Movie
+                        </h1>
+                    </th>
+                    <th>
+                        <h1>
+                            Avg Rating
+                        </h1>
+                    </th>
+                    <th>
+                        <h1>
+                            "Score"
+                        </h1>
+                    </th>
+                    <th>
+                        <h1>
+                            Num Votes
+                        </h1>
+                    </th>
+                </thead>
+                <tbody>
+                    {% for movie in top_rated_movies %}
+                        <tr>
+                            <td><h4>{{ loop.index }}</h4></td>
+                            <td><h4><a href="/movie/{{ movie.movie_id }}">{{ movie.title }}</a></h4></td>
+                            <td><h4>{{ movie.avg_rating }}</h4></td>
+                            <td><h4>{{ movie.score }}</h4></td>
+                            <td><h4>{{ movie.rating_ct }}</h4></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

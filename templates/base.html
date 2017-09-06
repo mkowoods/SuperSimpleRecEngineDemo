@@ -1,0 +1,55 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .container {
+            margin-top: 70px;
+            width: 85%;
+        }
+        .flashes > li {
+            color: red;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+
+        <a class="navbar-brand" href="/">Super Simple Recommendation Demo</a>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if not session['user_id'] %}
+                    <li><a class="" href="/login">Login</a></li>
+                {% else %}
+                    <li><a class="" href="/logout">Logout, {{ session['user_id'] }}</a></li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </nav>
+
+    {% with flashes = get_flashed_messages() %}
+        {% if flashes %}
+          <ul class="flashes">
+          {% for message in flashes %}
+              <li>{{ message }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    {% block body %}
+    {% endblock %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</body>
+</html>

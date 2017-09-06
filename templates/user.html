@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10">
+            <h1>User Based Similarity - Determine Recommendations based On Other Users</h1>
+            <h2>Data for User {{ user_id }} - {{ user_summary.average_rating|round(4) }}</h2>
+            <h4># of ratings: {{ user_summary.total_rating[1]    }}</h4>
+        </div>
+    </div>
+    <div class="row" style="height: 700px;">
+        <div class="col-md-2" style="height: inherit; overflow-y: scroll">
+            <table class="table table-condensed">
+                <thead>
+                    <th>Genre</th>
+                    <th>Votes</th>
+                    <th>Avg Rating</th>
+                </thead>
+                <tbody>
+                {% for genre in genre_table %}
+                    <tr>
+                        <td><h5>{{ genre[0] }}</h5></td>
+                        <td><h5>{{ genre[1] }}</h5></td>
+                        <td><h5>{{ genre[2]|round(4) }}</h5></td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-md-2">
+            <h3>Sim Users</h3>
+            <table class="table table-condensed">
+                <thead>
+                    <th>user_id</th>
+                    <th>recs in common</th>
+                    <th>sim score</th>
+                </thead>
+                <tbody>
+                    {% for user in sim_users %}
+                        <tr>
+                            <td><h5><a href="/user/{{ user.user_id }}">{{ user.user_id }}</a> </h5></td>
+                            <td><h5>{{ user.recs_in_common }}</h5></td>
+                            <td><h5>{{ user.sim_score|round(4) }}</h5></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <hr>
+            <h3>Dis Sim Users</h3>
+            <table class="table table-condensed">
+                <thead>
+                    <th>user_id</th>
+                    <th>recs in common</th>
+                    <th>sim score</th>
+                </thead>
+                <tbody>
+                    {% for user in dis_sim_users %}
+                        <tr>
+                            <td><h5><a href="/user/{{ user.user_id }}">{{ user.user_id }}</a> </h5></td>
+                            <td><h5>{{ user.recs_in_common }}</h5></td>
+                            <td><h5>{{ user.sim_score|round(4) }}</h5></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4" style="border: solid 1px; height: inherit; overflow-y: scroll">
+            <table class="table table-condensed">
+                <thead>
+                    <th>Title</th>
+                    <th>Rating</th>
+                    <th>Genres</th>
+                </thead>
+                <tbody>
+                    {% for movie in user_summary.sorted_rating %}
+                    <tr>
+                        <td><h5>{{ movie.title }}</h5></td>
+                        <td><h5>{{ movie.rating }}</h5></td>
+                        <td><h5>{{ movie.genres|join(', ') }}</h5></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4" style="border: solid 1px; height: inherit; overflow-y: scroll">
+                <table class="table table-condensed">
+                <thead>
+                    <th>Title</th>
+                    <th>Num Votes</th>
+                    <th>Genres</th>
+                </thead>
+                <tbody>
+                    {%  for rec in user_recommendations %}
+                    <tr>
+                        <td><h5>{{ rec.title }}</h5></td>
+                        <td><h5>{{ rec.votes }}</h5></td>
+                        <td><h5>{{ rec.genres|join(', ') }}</h5></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
