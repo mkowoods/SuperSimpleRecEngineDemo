@@ -13,18 +13,21 @@
     <div>
         <div class="row" style="height: 700px">
             <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                <h2>Recs</h2>
                 {% for rec in recs %}
                     <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a></h5>
                     <div>{{ rec[0].genres|join(', ') }}</div>
                 {% endfor %}
             </div>
             <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                <h2>Anti Recs</h2>
                 {% for rec in anti_recs %}
                     <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a> </h5>
                     <div>{{ rec[0].genres|join(', ') }}</div>
                 {% endfor %}
             </div>
             <div class="col-lg-4" style="height: inherit; overflow-y: scroll">
+                <h2>Most In Common</h2>
                 {% for rec in most_in_common %}
                     <h5>{{ rec[1] }} - {{ rec[2]|round(4) }} - <a href="/movie/{{ rec[0].movieId }}">{{ rec[0].title }}</a></h5>
                     <div>{{ rec[0].genres|join(', ') }}</div>
